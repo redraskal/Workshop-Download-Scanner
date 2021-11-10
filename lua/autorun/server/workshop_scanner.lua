@@ -20,6 +20,7 @@ local supportedNames = {
 	"sound/*",
 	"materials/*",
 	"models/*",
+	"maps/thumb/*",
 }
 
 local function exists(name, path)
