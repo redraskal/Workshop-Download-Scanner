@@ -41,7 +41,7 @@ end
 local function shouldDownload(addon)
 	local title = addon.title
 
-	if exists("maps/*", title) then
+	if exists("maps/*", title) and not exists("maps/thumb/*") then
 		return false
 	end
 
