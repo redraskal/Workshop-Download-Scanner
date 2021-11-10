@@ -26,11 +26,16 @@ local supportedNames = {
 local function exists(name, path)
 	local _, folders = file.Find(name, path)
 
-	for _ in ipairs(folders) do
-		return true
+	for _, folder in ipairs(folders) do
+		return true, folder
 	end
 
-	return false
+	return false, nil
+end
+
+local function hasMapIcons(path)
+	local map, firstMapFolder = exists("maps/*", path)
+	return map and firstMapFolder == "thumb"
 end
 
 --[[
@@ -40,8 +45,13 @@ end
 ]]
 local function shouldDownload(addon)
 	local title = addon.title
+	local mapIcons = hasMapIcons(title)
 
-	if exists("maps/*", title) and not exists("maps/thumb/*", title) then
+	if mapIcons then
+		return true
+	end
+
+	if exists("maps/*", title) then
 		return false
 	end
 
